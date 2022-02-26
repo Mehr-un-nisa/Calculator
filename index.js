@@ -9,6 +9,7 @@ for(item of buttons){
     })
   }
 
+
 /* HISTORY PART */
 var x=0;
 var expression_arr = Array();
@@ -24,23 +25,31 @@ function add_element_to_array(exp, res)
 
 function display_array()
 {
-   var e = "";
-
    for (var y=0; y<expression_arr.length; y++)
    {
-     e += "Expression: " + expression_arr[y] + " Result: "+ result_arr[y] + "<br/>";
-     document.getElementById("expression").innerHTML = e;
+        var list = document.getElementById('list');
+        var newEl = document.createElement('li');
+        newEl.setAttribute("id", "item" + x + "");
+        newEl.innerHTML = "Expression: " + expression_arr[y] + " , Result: " + result_arr[y] + "\t \t" + "<i class='material-icons' style='font-size:24px;color:red'>backspace</i>";
+        newEl.setAttribute("onclick", "remove(this)");
+        list.appendChild(newEl);
     }
 }
+
+function remove(el) {
+  var element = el;
+  element.remove();
+}
+
 
 /* OPERATORS FUNCTIONS */
 
 function pi(){
-  screen.value+=3.14159;
+  screen.value+=3.1415;
 }
 
 function euler(){
-  screen.value+=2.71828;
+  screen.value+=2.7182;
 }
 
 function backspec(){
@@ -195,18 +204,25 @@ operators =  {
             let _out = [];
             for (i = 0; i < _postfix.length; i++) {
                 let t = _postfix[i];
+                // if it is a value push on the stack
                 if (isOperand((t))) {
                     _out.push(t);
-                } else {
+                }
+                else if (t in operators) {
                     if (operators[t].unary) {
                         e = Number(_out.pop());
-                        _out.push(operators[t].func(e).toString());
+                        _out.push(operators[t].func(e).toFixed(4).toString());
                     } else {
                         a = Number(_out.pop());
                         b = Number(_out.pop());
-                        _out.push(operators[t].func(b, a).toString());
+                        _out.push(operators[t].func(b, a).toFixed(4).toString());
                     }
                 }
+                // else we skip whitespaces
+            }
+
+            if(_out.length > 1){
+                alert("Parser Error: " + _postfix + ", stack " + _out);
             }
             return _out[0];
         }
@@ -259,14 +275,6 @@ operators =  {
         }
     }
 
-    //constants control handler
-    function handleConst(constant) {
-        if (constant === "eⁿ") {
-            ins.push("e(");
-        } else {
-            ins.push(constant);
-        }
-    }
 
     //point or float sign control//
     function AddPoint(str) {
@@ -310,10 +318,16 @@ operators =  {
     function Evaluate() {
         resolveConsts();
         let output = InfixtoPostfix(ins);
+        expression = ins.join('');
         let result = postfixEval(output);
-        ins = [];
-        ins.push(result);
-        display();
+        if(result === undefined || result === null)
+            alert("Invalid expression");
+        else{
+            ins = [];
+            ins.push(result);
+            add_element_to_array(expression, result);
+            display();
+        }
     }
 
 
