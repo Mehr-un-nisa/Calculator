@@ -14,6 +14,7 @@ for(item of buttons){
 var x=0;
 var expression_arr = Array();
 var result_arr = Array();
+var  h=0;
 
 function add_element_to_array(exp, res)
 {
@@ -25,15 +26,13 @@ function add_element_to_array(exp, res)
 
 function display_array()
 {
-   for (var y=0; y<expression_arr.length; y++)
-   {
         var list = document.getElementById('list');
         var newEl = document.createElement('li');
-        newEl.setAttribute("id", "item" + x + "");
-        newEl.innerHTML = "Expression: " + expression_arr[y] + " , Result: " + result_arr[y] + "\t \t" + "<i class='material-icons' style='font-size:24px;color:red'>backspace</i>";
+        newEl.setAttribute("id", "item" + h + "");
+        newEl.innerHTML = "Expression: " + expression_arr[h] + " , Result: " + result_arr[h] + "\t \t" + "<i class='material-icons' style='font-size:24px;color:red'>backspace</i>";
         newEl.setAttribute("onclick", "remove(this)");
         list.appendChild(newEl);
-    }
+        h++;
 }
 
 function remove(el) {
