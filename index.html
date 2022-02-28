@@ -19,19 +19,17 @@
         <h1 style="text-align: center;">Scientific Calculator</h1>
         <br />
         <div class="display">
-
-          <input id="output" type="" name="display" class="screen" readonly/>
-
+          <input id="output" type="" name="display" class="screen" readonly />
         </div>
         <div id="buttons">
 
           <div class="row">
-            <div class="button" onclick="screenclear()" >AC</div>
-            <div class="button" onclick="backspec()">CE</div>
+            <div class="button" onclick="screenclear()">AC</div>
+            <div class="button" onclick="backspac()">CE</div>
             <div class="button">ANS</div>
             <div class="button btn" onclick="handleOperator('/')">/</div>
             <div class="button btn" onclick="handleConst('e')">e</div>
-            <div class="button btn" onclick="handleConst('π')" >π</div>
+            <div class="button btn" onclick="handleConst('π')">π</div>
           </div>
           <div class="row">
             <div class="button btn" id="sin(" onclick="handleTrig('sin(')">sin(</div>
@@ -58,7 +56,7 @@
           </div>
           <div class="row">
             <div class="button btn" id="degrees" onclick="AddBrace(')')">)</div>
-            <div class="button btn number" id="zero" onclick="AddValue('0')" >0</div>
+            <div class="button btn number" id="zero" onclick="AddValue('0')">0</div>
             <div class="button btn" onclick="AddPoint('.')">.</div>
             <div class="button" id="eval" onclick="Evaluate()">=</div>
           </div>
@@ -75,8 +73,6 @@
     <ul id="list">
     </ul>
   </div>
-
-
 
   <script src="./index.js"></script>
 </body>

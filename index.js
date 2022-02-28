@@ -1,3 +1,4 @@
+// Event listener for click on buttons
 let screen = document.getElementById('output');
 buttons = document.querySelectorAll('.btn');
 let screenValue = '';
@@ -123,46 +124,49 @@ operators =  {
   Ops = ["+", "-", "*", "/", "sqrt("];
   trigs = ["sin(", "cos(", "tan("];
 
+    // function to check legal number
     isOperand = function (_in) {
         return !isNaN(_in);
     };
 
+    // function to check operator
     isOperator = function (o_p) {
         return Ops.includes(o_p);
     };
-
+    // function to check is digit
     isDigit = function (n) {
         let numReg = /[0-9]/i;
         return numReg.test(n);
     };
 
-
+    // function to return top of the stack
     peek = function (arr_) {
         return arr_[arr_.length - 1];
     };
 
+    // function to check trigonometric functions
     isTrig = function (t) {
         return trigs.includes(t);
     };
 
-    /* INFIX TO POSTFIX */
+    /* INFIX TO POSTFIX FUNCTIONS*/
     function InfixtoPostfix(_infix) {
         let _post = [];
         let _stack = [];
 
         for (i = 0; i < _infix.length; i++) {
-            let tok = _infix[i];
-            if (isOperand(tok)) {
-                _post.push(tok);
-            } else if (tok === "(") {
-                _stack.push(tok);
-            } else if (tok === ")") {
+            let tp = _infix[i];
+            if (isOperand(tp)) {
+                _post.push(tp);
+            } else if (tp === "(") {
+                _stack.push(tp);
+            } else if (tp === ")") {
                 while (_stack.length > 0 && peek(_stack) !== "(") {
                     _post.push(_stack.pop());
                 }
                 _stack.pop();
-            } else if (isOperator(tok) || isTrig(tok)) {
-                a = tok;
+            } else if (isOperator(tp) || isTrig(tp)) {
+                a = tp;
                 b = peek(_stack);
 
                 while (_stack.length > 0 && b !== "(" && ((!operators[a].rule && (operators[a].pre <= operators[b].pre)) ||
@@ -183,6 +187,7 @@ operators =  {
         return _post;
     }
 
+    /* POSTFIX EVALUATION FUNCTION */
     function postfixEval(_postfix) {
         if (!_postfix.includes("(") && !_postfix.includes(")")) {
             let _out = [];
@@ -192,6 +197,7 @@ operators =  {
                 if (isOperand((t))) {
                     _out.push(t);
                 }
+                // if it is the operator push on stack
                 else if (t in operators) {
                     if (operators[t].unary) {
                         e = Number(_out.pop());
@@ -212,9 +218,8 @@ operators =  {
         }
     }
 
-
+    // GLOBAL instance array for expression
     ins = [];
-    _syntax = [];
 
     function AddValue(str) {
         let val = str.toString();
@@ -259,8 +264,7 @@ operators =  {
         }
     }
 
-
-    //point or float sign control//
+    //point or float sign control function
     function AddPoint(str) {
         let peek = ins[ins.length - 1];
         if (peek === null || peek === undefined) {
@@ -274,12 +278,12 @@ operators =  {
         }
     }
 
-    //braces control handler
+    //braces control handler function
     function AddBrace(str) {
         ins.push(str);
     }
 
-    //constants control handler
+    //constants control handler function
     function handleConst(constant) {
         if (constant === "e") {
             ins.push("e");
@@ -288,6 +292,7 @@ operators =  {
         }
     }
 
+    // function to handle constant values such as pi and euler
     function resolveConsts() {
         let _const = ["e", "π"];
 
@@ -329,6 +334,7 @@ operators =  {
         document.getElementById('output').value = st(v).toString();
     }
 
+    // replace all string occurances
     let st = function (v) {
         return v.replace(/,/g, "");
     };
@@ -340,8 +346,8 @@ operators =  {
         display();
     }
 
-    // del last digit
-    function backspec(){
+    // backspace function
+    function backspac(){
         let top = peek(ins);
         if (top != undefined){
             if(isOperand(top)) {
