@@ -41,16 +41,6 @@ function remove(el) {
 }
 
 
-/* OPERATORS FUNCTIONS */
-
-function pi(){
-  screen.value+=3.1415;
-}
-
-function euler(){
-  screen.value+=2.7182;
-}
-
 function backspec(){
   screen.value = screen.value.substr(0,screen.value.length-1);
 }
@@ -136,7 +126,7 @@ operators =  {
 
 
   Ops = ["+", "-", "*", "/", "sqrt("];
-  trigs = ["e(", "sin(", "cos(", "tan("];
+  trigs = ["sin(", "cos(", "tan("];
 
     isOperand = function (_in) {
         return !isNaN(_in);
@@ -254,13 +244,13 @@ operators =  {
     function handleTrig(trig) {
         switch (trig.substring(0, 4)) {
                 case "sin(":
-                    ins.push(trigs[1]);
+                    ins.push(trigs[0]);
                     break;
                 case "cos(":
-                    ins.push(trigs[2]);
+                    ins.push(trigs[1]);
                     break;
                 case "tan(":
-                    ins.push(trigs[3]);
+                    ins.push(trigs[2]);
                     break;
         }
     }
@@ -292,6 +282,15 @@ operators =  {
     //braces control handler
     function AddBrace(str) {
         ins.push(str);
+    }
+
+    //constants control handler
+    function handleConst(constant) {
+        if (constant === "e") {
+            ins.push("e");
+        } else {
+            ins.push(constant);
+        }
     }
 
     function resolveConsts() {
