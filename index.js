@@ -40,11 +40,6 @@ function remove(el) {
   element.remove();
 }
 
-
-function backspec(){
-  screen.value = screen.value.substr(0,screen.value.length-1);
-}
-
 /* OPERATORS OBJECT */
 operators =  {
     "(": {
@@ -344,3 +339,24 @@ operators =  {
         screen.value='';
         display();
     }
+
+    // del last digit
+    function backspec(){
+        let top = peek(ins);
+        if (top != undefined){
+            if(isOperand(top)) {
+                let tp = top.substring(0, top.length - 1);
+                if(tp === ""){
+                    ins.pop();
+                }
+                else{
+                    ins.pop();
+                    ins.push(tp);
+                }
+            }
+            else{
+                ins.pop();
+            }
+            screen.value = screen.value.substr(0, screen.value.length-1);
+        }
+      }
