@@ -10,6 +10,18 @@
     max-width: 612px;
     margin: 10px auto;
 }
+
+.center{
+  margin-bottom: 5%;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.txt-center{
+  text-align: center;
+}
+
 #output {
   background-color: #000;
   color: #fff;

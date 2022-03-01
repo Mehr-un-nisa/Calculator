@@ -287,9 +287,11 @@ operators =  {
     function handleConst(constant) {
         if (constant === "e") {
             ins.push("e");
-        } else {
+        }
+        else if(constant === "π"){
             ins.push(constant);
         }
+        // else if anyother characters are type so ignore them
     }
 
     // function to handle constant values such as pi and euler
@@ -298,15 +300,23 @@ operators =  {
 
         for (i = 0; i < ins.length; i++) {
             let curr = ins[i];
+            // if curr is constant
             if (_const.includes(curr)) {
+                // if expression is 2π or (1+1)π format
                 if (isOperand(ins[i - 1]) || ins[i - 1] === ")") {
                     ins.splice(i, 0, "*");
                     ins[i + 1] = (curr === _const[0]) ? Math.E : Math.PI;
-                } else if (ins[i - 1] === "-" || ins[i - 1] === "+") {
+                }
+                // if expression is 2*π or 3+π
+                else if (ins[i - 1] === "-" || ins[i - 1] === "+" || ins[i - 1] === "*" || ins[i - 1] === "/") {
                     let dp = ins[i - 2];
                     if (dp === undefined || dp === null || dp === "(" || isOperator(dp) || dp[dp.length - 1] === "(") {
                         let op = ins[i - 1];
                         ins.splice(i - 1, 2, op + ((curr === _const[0]) ? Math.E : Math.PI));
+                    }
+                    else if(isOperand(dp)){
+                        ins[i] = (curr === _const[0]) ? Math.E : Math.PI;
+                        console.log(ins);
                     }
                 }
             }
