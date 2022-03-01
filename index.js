@@ -319,6 +319,10 @@ operators =  {
                         console.log(ins);
                     }
                 }
+                // if expression contain only π or e
+                else if(i==0){
+                    ins[i] = (curr === _const[0]) ? Math.E.toFixed(4) : Math.PI.toFixed(4);
+                }
             }
         }
     }
