@@ -305,17 +305,17 @@ operators =  {
                 // if expression is 2π or (1+1)π format
                 if (isOperand(ins[i - 1]) || ins[i - 1] === ")") {
                     ins.splice(i, 0, "*");
-                    ins[i + 1] = (curr === _const[0]) ? Math.E : Math.PI;
+                    ins[i + 1] = (curr === _const[0]) ? Math.E.toFixed(4) : Math.PI.toFixed(4);
                 }
                 // if expression is 2*π or 3+π
                 else if (ins[i - 1] === "-" || ins[i - 1] === "+" || ins[i - 1] === "*" || ins[i - 1] === "/") {
                     let dp = ins[i - 2];
                     if (dp === undefined || dp === null || dp === "(" || isOperator(dp) || dp[dp.length - 1] === "(") {
                         let op = ins[i - 1];
-                        ins.splice(i - 1, 2, op + ((curr === _const[0]) ? Math.E : Math.PI));
+                        ins.splice(i - 1, 2, op + ((curr === _const[0]) ? Math.E.toFixed(4) : Math.PI.toFixed(4)));
                     }
                     else if(isOperand(dp)){
-                        ins[i] = (curr === _const[0]) ? Math.E : Math.PI;
+                        ins[i] = (curr === _const[0]) ? Math.E.toFixed(4) : Math.PI.toFixed(4);
                         console.log(ins);
                     }
                 }
