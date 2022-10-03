@@ -11,6 +11,7 @@ for(item of buttons){
   }
 
 
+
 /* HISTORY PART */
 var x=0;
 var expression_arr = Array();
@@ -30,7 +31,7 @@ function display_array()
         var list = document.getElementById('list');
         var newEl = document.createElement('li');
         newEl.setAttribute("id", "item" + h + "");
-        newEl.innerHTML = "Expression: " + expression_arr[h] + " , Result: " + result_arr[h] + "\t \t" + "<i class='material-icons' style='font-size:24px;color:red'>backspace</i>";
+        newEl.innerHTML = "Expression: " + expression_arr[h] +  "<br>"  + "&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp" + "Result: " + result_arr[h] + "\t \t"  + "&nbsp &nbsp &nbsp &nbsp" + "<i class='material-icons' style='font-size:24px;color:blue'>backspace</i>";
         newEl.setAttribute("onclick", "remove(this)");
         list.appendChild(newEl);
         h++;
